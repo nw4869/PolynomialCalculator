@@ -12,16 +12,23 @@
 using namespace std;
 
 struct Node {
+    Node(int exp, double coef): exp(exp), coef(coef){}
+    Node(){}
     int exp;
-    float coef;
+    double coef;
 };
 
-class Polynomial: private queue<Node>, public Operation {
+class Polynomial: public Operation {
 public:
+    Polynomial() { }
     Polynomial(Node nodes[], size_t length);
+
+    Polynomial(Polynomial const & polynomial);
 
     Polynomial operator+(Polynomial& other);
     Polynomial operator-(Polynomial& other);
+    void clear();
+    void read();
     void print();
     //enum OperatorType {
     //    add,
@@ -29,12 +36,16 @@ public:
     //};
     Polynomial calc(Operators::OperatorType ot,Polynomial p1, Polynomial p2);
 
-    virtual Type getType()
+    void equalsSum(Polynomial &p, Polynomial &q);
+
+    virtual Type getType() const
     {
         return operand;
     }
-private:
-    Polynomial() { }
+
+    void setNodes(Node nodes[], size_t length);
+
+    void equalsSub(Polynomial &p, Polynomial &q);
 
 public:
     char getName() const {
@@ -47,6 +58,9 @@ public:
 
 private:
     char name;
+
+    queue<Node> nodes;
+
 };
 
 

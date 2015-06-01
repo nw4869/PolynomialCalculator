@@ -13,13 +13,14 @@ public:
     enum OperatorType {
         add,
         sub,
+        equal,
     };
     Operators(OperatorType operatorType) { this->operatorType = operatorType; }
 
     OperatorType getOperatorType() { return operatorType; }
 
 private:
-    virtual Type getType() { return operators; }
+    virtual Type getType() const { return operators; }
     OperatorType operatorType;
 };
 

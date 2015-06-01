@@ -50,7 +50,7 @@ POST: A legal command is read from the user and returned.
         do {
             cin.get(d);
         } while (d != '\n');
-        command = tolower(command);
+        command = (char) tolower(command);
         if  (command == '?' || command == '=' || command == '+' ||
              command == '-' || command == 'h' || command == '*' ||
              command == '/' || command == 'q' || command == 'p' ||
@@ -73,7 +73,7 @@ void readInput(stack<Operation*>& operations) {
         }
         else if (c == '+' || c == '-')
         {
-            Operators::OperatorType type;
+            Operators::OperatorType type = Operators::add;
             switch (c)
             {
                 case '+':
@@ -95,15 +95,21 @@ void readInput(stack<Operation*>& operations) {
     }
 }
 
-void readPolynomial(Polynomial *pPolynomial) {
-
-}
 
 int main() {
     Node nodes[] = {{1,1}, {2,2}, {3,3}};
-    Polynomial polynomial = Polynomial(nodes, 3);
-//    polynomial = polynomial + polynomial;
-    polynomial = polynomial.calc(Operators::add, polynomial, polynomial);
-    polynomial.print();
+    Polynomial* polynomial = new Polynomial(nodes, 3);
+    Polynomial newp =
+            *polynomial + *polynomial;
+    Polynomial* pnewp =
+            new Polynomial(newp);
+//    Polynomial p = polynomial->calc(Operators::add, *polynomial, *polynomial);
+    newp.print();
+
+//    stack<Operation> stack1;
+//    stack1.push(polynomial);
+//    Polynomial& op = (Polynomial &) stack1.top();
+//    cout << op.getType() << endl;
+
     return 0;
 }
